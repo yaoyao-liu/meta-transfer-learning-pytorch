@@ -1,3 +1,13 @@
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Created by: Yaoyao Liu
+## Tianjin University
+## Email: liuyaoyao@tju.edu.cn
+## Copyright (c) 2019
+##
+## This source code is licensed under the MIT-style license found in the
+## LICENSE file in the root directory of this source tree
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import os
 
 def run_exp(num_batch=1000, shot=1, query=15, lr=0.0001, lr2=0.001, lr3=0.00001, base_lr=0.01, update_step=10, gamma=0.5):
