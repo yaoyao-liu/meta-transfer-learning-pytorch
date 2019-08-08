@@ -23,6 +23,8 @@ def occupy_memory(cuda_device):
     used = int(used)
     max_mem = int(total * 0.9)
     block_mem = max_mem - used
+    if block_mem < 0:
+        block_mem = 0
     x = torch.cuda.FloatTensor(256, 1024, block_mem)
     del x
 
