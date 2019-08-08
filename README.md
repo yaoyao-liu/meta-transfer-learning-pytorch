@@ -45,7 +45,7 @@ conda install pytorch=0.4.0 torchvision
 
 Install other requirements:
 ```bash
-pip install scipy tqdm opencv-python pillow matplotlib
+pip install tqdm tensorboardX
 ```
 
 Clone this repository:
