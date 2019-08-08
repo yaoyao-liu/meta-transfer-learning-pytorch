@@ -113,7 +113,7 @@ python run_meta.py
 ```
 
 ### Hyperparameters and Options
-You may edit the `run_experiment.py` file to change the hyperparameters and options. 
+Hyperparameters and options in `main.py`.
 
 - `model_type` The network architecture
 - `dataset` Meta dataset
