@@ -1,17 +1,27 @@
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Created by: Yaoyao Liu
+## Tianjin University
+## Email: liuyaoyao@tju.edu.cn
+## Copyright (c) 2019
+##
+## This source code is licensed under the MIT-style license found in the
+## LICENSE file in the root directory of this source tree
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import os.path as osp
 import os
 from PIL import Image
-
 from torch.utils.data import Dataset
 from torchvision import transforms
 import numpy as np
 
 class DatasetLoader(Dataset):
     """The class to load the dataset"""
-    def __init__(self, setname, args):
+    def __init__(self, setname, args, train_aug=True):
+        # Set the path according to train, val and test        
         if setname=='train':
             THE_PATH = osp.join(args.dataset_dir, 'train')
-            label_list = os.listdir(TRAIN_PATH)
+            label_list = os.listdir(THE_PATH)
         elif setname=='test':
             THE_PATH = osp.join(args.dataset_dir, 'test')
             label_list = os.listdir(THE_PATH)
@@ -19,12 +29,16 @@ class DatasetLoader(Dataset):
             THE_PATH = osp.join(args.dataset_dir, 'val')
             label_list = os.listdir(THE_PATH)
         else:
-            raise ValueError('Wrong setname.')            
+            raise ValueError('Wrong setname.') 
+
+        # Generate empty list for data and label           
         data = []
         label = []
 
+        # Get folders' name
         folders = [osp.join(THE_PATH, label) for label in label_list if os.path.isdir(osp.join(THE_PATH, label))]
 
+        # Get the images' paths and labels
         for idx in range(len(folders)):
             this_folder = folders[idx]
             this_folder_images = os.listdir(this_folder)
@@ -32,12 +46,13 @@ class DatasetLoader(Dataset):
                 data.append(osp.join(this_folder, image_path))
                 label.append(idx)
 
+        # Set data, label and class number to be accessable from outside
         self.data = data
         self.label = label
         self.num_class = len(set(label))
 
         # Transformation
-        if args.pre_augmentation:
+        if train_aug:
             image_size = 80
             self.transform = transforms.Compose([
                 transforms.Resize(92),

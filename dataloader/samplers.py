@@ -1,9 +1,18 @@
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Created by: Yaoyao Liu
+## Tianjin University
+## Email: liuyaoyao@tju.edu.cn
+## Copyright (c) 2019
+##
+## This source code is licensed under the MIT-style license found in the
+## LICENSE file in the root directory of this source tree
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import torch
 import numpy as np
 
-
 class CategoriesSampler():
-
+    """The class to generate episodic data"""
     def __init__(self, label, n_batch, n_cls, n_per):
         self.n_batch = n_batch
         self.n_cls = n_cls

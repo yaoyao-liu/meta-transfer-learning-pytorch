@@ -1,3 +1,14 @@
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Created by: Yaoyao Liu
+## Tianjin University
+## Email: liuyaoyao@tju.edu.cn
+## Copyright (c) 2019
+##
+## This source code is licensed under the MIT-style license found in the
+## LICENSE file in the root directory of this source tree
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+""" Additional utility functions. """
 import os
 import shutil
 import time
@@ -6,15 +17,18 @@ import torch
 import numpy as np
 import torch.nn.functional as F
 
-
 def ensure_path(path):
+    """The function to make log path.
+    Args:
+      path: the generated saving path.
+    """
     if os.path.exists(path):
         pass
     else:
         os.mkdir(path)
 
 class Averager():
-
+    """The class to calculate the average."""
     def __init__(self):
         self.n = 0
         self.v = 0
@@ -27,30 +41,21 @@ class Averager():
         return self.v
 
 def count_acc(logits, label):
+    """The function to calculate the .
+    Args:
+      logits: input logits.
+      label: ground truth labels.
+    Return:
+      The output accuracy.
+    """
     pred = F.softmax(logits, dim=1).argmax(dim=1)
-    #pred = torch.argmax(logits, dim=1)
     if torch.cuda.is_available():
         return (pred == label).type(torch.cuda.FloatTensor).mean().item()
     else:
         return (pred == label).type(torch.FloatTensor).mean().item()
-
-def count_acc1(logits, label):
-    #pred = F.softmax(logits, dim=1).argmax(dim=1)
-    pred = torch.argmax(logits, dim=1)
-    if torch.cuda.is_available():
-        return (pred == label).type(torch.cuda.FloatTensor).mean().item()
-    else:
-        return (pred == label).type(torch.FloatTensor).mean().item()
-
-def euclidean_metric(a, b):
-    n = a.shape[0]
-    m = b.shape[0]
-    a = a.unsqueeze(1).expand(n, m, -1)
-    b = b.unsqueeze(0).expand(n, m, -1)
-    logits = -((a - b)**2).sum(dim=2)
-    return logits
 
 class Timer():
+    """The class for timer."""
     def __init__(self):
         self.o = time.time()
 
@@ -69,10 +74,13 @@ def pprint(x):
     _utils_pp.pprint(x)
 
 def compute_confidence_interval(data):
-    """
-    Compute 95% confidence interval
-    :param data: An array of mean accuracy (or mAP) across a number of sampled episodes.
-    :return: the 95% confidence interval for this data.
+    """The function to calculate the .
+    Args:
+      data: input records
+      label: ground truth labels.
+    Return:
+      m: mean value
+      pm: confidence interval.
     """
     a = 1.0 * np.array(data)
     m = np.mean(a)

@@ -1,9 +1,21 @@
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Created by: Yaoyao Liu
+## Tianjin University
+## Email: liuyaoyao@tju.edu.cn
+## Copyright (c) 2019
+##
+## This source code is licensed under the MIT-style license found in the
+## LICENSE file in the root directory of this source tree
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import  torch
 import torch.nn as nn
-from utils.misc import euclidean_metric
 import torch.nn.functional as F
+from utils.misc import euclidean_metric
+from models.resnet_mtl import ResNetMtl
 
 class BaseLearner(nn.Module):
+    """The class for inner loop."""
     def __init__(self, args, z_dim):
         super().__init__()
         self.args = args
@@ -27,6 +39,7 @@ class BaseLearner(nn.Module):
         return self.vars
 
 class MtlLearner(nn.Module):
+    """The class for outer loop."""
     def __init__(self, args, mode='meta', num_cls=64):
         super().__init__()
         self.args = args
@@ -37,14 +50,18 @@ class MtlLearner(nn.Module):
         self.base_learner = BaseLearner(args, z_dim)
 
         if self.mode == 'meta':
-            from model.resnet_mtl import ResNetMtl
             self.encoder = ResNetMtl()  
         else:
-            from model.resnet_mtl import ResNetMtl
             self.encoder = ResNetMtl(mtl=False)  
             self.pre_fc = nn.Sequential(nn.Linear(640, 1000), nn.ReLU(), nn.Linear(1000, num_cls))
 
     def forward(self, inp):
+        """The function to forward the model.
+        Args:
+          inp: input images.
+        Returns:
+          the outputs of MTL model.
+        """
         if self.mode=='pre':
             return self.pretrain_forward(inp)
         elif self.mode=='meta':
@@ -56,10 +73,24 @@ class MtlLearner(nn.Module):
         else:
             raise ValueError('Please set the correct mode.')
 
-    def pretrain_forward(self, input):
-        return self.pre_fc(self.encoder(input))
+    def pretrain_forward(self, inp):
+        """The function to forward pretrain phase.
+        Args:
+          inp: input images.
+        Returns:
+          the outputs of pretrain model.
+        """
+        return self.pre_fc(self.encoder(inp))
 
     def meta_forward(self, data_shot, label_shot, data_query):
+        """The function to forward meta-train phase.
+        Args:
+          data_shot: train images for the task
+          label_shot: train labels for the task
+          data_query: test images for the task.
+        Returns:
+          logits_q: the predictions for the test samples.
+        """
         embedding_query = self.encoder(data_query)
         embedding_shot = self.encoder(data_shot)
         logits = self.base_learner(embedding_shot)
@@ -67,7 +98,6 @@ class MtlLearner(nn.Module):
         grad = torch.autograd.grad(loss, self.base_learner.parameters())
         fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, self.base_learner.parameters())))
         logits_q = self.base_learner(embedding_query, fast_weights)
-        total_logits = self.v_vars[0] * logits_q
 
         for k in range(1, self.update_step):
             logits = self.base_learner(embedding_shot, fast_weights)
@@ -75,10 +105,17 @@ class MtlLearner(nn.Module):
             grad = torch.autograd.grad(loss, fast_weights)
             fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, fast_weights)))
             logits_q = self.base_learner(embedding_query, fast_weights)        
-
         return logits_q
 
     def preval_forward(self, data_shot, label_shot, data_query):
+        """The function to forward meta-validation during pretrain phase.
+        Args:
+          data_shot: train images for the task
+          label_shot: train labels for the task
+          data_query: test images for the task.
+        Returns:
+          logits_q: the predictions for the test samples.
+        """
         embedding_query = self.encoder(data_query)
         embedding_shot = self.encoder(data_shot)
         logits = self.base_learner(embedding_shot)
@@ -93,7 +130,6 @@ class MtlLearner(nn.Module):
             grad = torch.autograd.grad(loss, fast_weights)
             fast_weights = list(map(lambda p: p[1] - 0.01 * p[0], zip(grad, fast_weights)))
             logits_q = self.base_learner(embedding_query, fast_weights)         
-
         return logits_q
 
 

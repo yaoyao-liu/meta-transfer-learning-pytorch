@@ -1,13 +1,22 @@
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Created by: Yaoyao Liu
+## Tianjin University
+## Email: liuyaoyao@tju.edu.cn
+## Copyright (c) 2019
+##
+## This source code is licensed under the MIT-style license found in the
+## LICENSE file in the root directory of this source tree
+##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import math
 import torch
-from torch.nn.parameter import Parameter
 import torch.nn.functional as F
+from torch.nn.parameter import Parameter
 from torch.nn.modules.module import Module
 from torch.nn.modules.utils import _single, _pair, _triple
 
-
 class _ConvNdMtl(Module):
-
+    """The class for meta-transfer convolution"""
     def __init__(self, in_channels, out_channels, kernel_size, stride,
                  padding, dilation, transposed, output_padding, groups, bias):
         super(_ConvNdMtl, self).__init__()
@@ -69,7 +78,7 @@ class _ConvNdMtl(Module):
         return s.format(**self.__dict__)
 
 class Conv2dMtl(_ConvNdMtl):
-
+    """The class for meta-transfer convolution"""
     def __init__(self, in_channels, out_channels, kernel_size, stride=1,
                  padding=0, dilation=1, groups=1, bias=True):
         kernel_size = _pair(kernel_size)

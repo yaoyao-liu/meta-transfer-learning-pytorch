@@ -28,7 +28,7 @@ if __name__ == '__main__':
     parser.add_argument('--phase', type=str, default='meta_train', choices=['pre_train', 'meta_train', 'meta_eval']) # Phase
     parser.add_argument('--seed', type=int, default=0) # Manual seed for PyTorch, "0" means using random seed
     parser.add_argument('--gpu', default='1') # GPU id 
-    parser.add_argument('--dataset_dir', type=str, default='./data/mini') # Dataset folder
+    parser.add_argument('--dataset_dir', type=str, default='./data/mini-imagenet/') # Dataset folder
 
     # Parameters for meta-train phase
     parser.add_argument('--max_epoch', type=int, default=100) # Epoch number for meta-train pahse
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     # Parameters for pretain phase
     parser.add_argument('--pre_max_epoch', type=int, default=100) # Epoch number for pretrain pahse
-    parser.add_argument('--pre_batch_size', type=int, default=128) # Batch size for pretrain pahse
+    parser.add_argument('--pre_batch_size', type=int, default=64) # Batch size for pretrain pahse
     parser.add_argument('--pre_lr', type=float, default=0.1) # Learning rate for pretrain pahse
     parser.add_argument('--pre_gamma', type=float, default=0.2) # Gamma for the preteain learning rate decay
     parser.add_argument('--pre_step_size', type=int, default=30) # The number of epochs to reduce the pretrain learning rate

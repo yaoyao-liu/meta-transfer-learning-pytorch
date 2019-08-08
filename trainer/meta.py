@@ -35,10 +35,10 @@ class MetaTrainer(object):
             os.mkdir(meta_base_dir)
         save_path1 = '_'.join([args.dataset, args.model_type, 'MTL'])
         save_path2 = 'shot' + str(args.shot) + '_way' + str(args.way) + '_query' + str(args.train_query) + \
-            '_step' + str(args.step_size) + '_gamma' + str(args.gamma) + '_lr' + str(args.lr) + '_lr2' + str(args.lr2) + \
-            '_lr3' + str(args.lr3) + '_batch' + str(args.num_batch) + '_maxepoch' + str(args.max_epoch) + \
+            '_step' + str(args.step_size) + '_gamma' + str(args.gamma) + '_lr1' + str(args.meta_lr1) + '_lr2' + str(args.meta_lr2) + \
+            '_batch' + str(args.num_batch) + '_maxepoch' + str(args.max_epoch) + \
             '_baselr' + str(args.base_lr) + '_updatestep' + str(args.update_step) + \
-            '_stepsize' + str(args.step_size) + '_' + args.label
+            '_stepsize' + str(args.step_size) + '_' + args.meta_label
         args.save_path = meta_base_dir + '/' + save_path1 + '_' + save_path2
         ensure_path(args.save_path)
 
@@ -59,12 +59,13 @@ class MetaTrainer(object):
         self.model = MtlLearner(self.args)
 
         # Set optimizer 
-        self.optimizer = torch.optim.Adam([{'params': self.model.encoder.parameters()}, \
+        self.optimizer = torch.optim.Adam([{'params': filter(lambda p: p.requires_grad, self.model.encoder.parameters())}, \
             {'params': self.model.base_learner.parameters(), 'lr': self.args.meta_lr2}], lr=self.args.meta_lr1)
         # Set learning rate scheduler 
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
         
         # load pretrained model without FC classifier
+        '''
         self.model_dict = self.model.state_dict()
         if self.args.init_weights is not None:
             pretrained_dict = torch.load(self.args.init_weights)['params']
@@ -80,7 +81,8 @@ class MetaTrainer(object):
         print(pretrained_dict.keys())
         self.model_dict.update(pretrained_dict)
         self.model.load_state_dict(self.model_dict)    
-          
+        '''
+
         # Set model to GPU
         if torch.cuda.is_available():
             torch.backends.cudnn.benchmark = True

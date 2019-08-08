@@ -18,7 +18,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from dataloader.samplers import CategoriesSampler
-from models.mtl import BaseLearner, MtlLearner
+from models.mtl import MtlLearner
 from utils.misc import Averager, Timer, count_acc, compute_confidence_interval, ensure_path
 from tensorboardX import SummaryWriter
 from dataloader.dataset_loader import DatasetLoader as Dataset

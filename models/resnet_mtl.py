@@ -1,6 +1,6 @@
 # ResNet Wide Version as in Qiao's Paper
 import torch.nn as nn
-from networks.conv2d_mtl import Conv2dMtl
+from models.conv2d_mtl import Conv2dMtl
 
 def conv3x3(in_planes, out_planes, stride=1):
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
