@@ -161,7 +161,7 @@ Please cite our paper if it is helpful to your work:
 
 Our implementation uses the source code from the following repositories and users:
 
-[FEAT](https://github.com/Sha-Lab/FEAT)
+* [FEAT](https://github.com/Sha-Lab/FEAT)
 
-[@icoz69](https://github.com/icoz69)
+* [@icoz69](https://github.com/icoz69)
 
