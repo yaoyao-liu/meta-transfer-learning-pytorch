@@ -82,17 +82,18 @@ To generate this dataset from ImageNet, you may use the repository 𝑡𝑖𝑒�
 
 ```
 .
-├── data_generator              # dataset generator 
-|   ├── pre_data_generator.py   # data genertor for pre-train phase
-|   └── meta_data_generator.py  # data genertor for meta-train phase
-├── models                      # tensorflow model files 
-|   ├── models.py               # basic model class
-|   ├── pre_model.py.py         # pre-train model class
-|   └── meta_model.py           # meta-train model class
-├── trainer                     # tensorflow trianer files  
+├── data_generator              
+|   ├── dataset_loader.py       # data loader for all datasets
+|   └── meta_data_generator.py  # samplers  for meta train
+├── models                      
+|   ├── mtl.py                  # meta-transfer class
+|   ├── resnet_mtl.py           # resnet class
+|   └── conv2d_mtl.py           # meta-transfer convolution class
+├── trainer                     
 |   ├── pre.py                  # pre-train trainer class
 |   └── meta.py                 # meta-train trainer class
 ├── utils                       # a series of tools used in this repo
+|   ├── gpu_tools.py            # GPU tool functions
 |   └── misc.py                 # miscellaneous tool functions
 ├── main.py                     # the python file with main function and parameter settings
 └── run_experiment.py           # the script to run the whole experiment
