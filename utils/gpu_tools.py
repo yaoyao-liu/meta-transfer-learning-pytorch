@@ -26,8 +26,8 @@ def occupy_memory(cuda_device):
     x = torch.cuda.FloatTensor(256, 1024, block_mem)
     del x
 
-def set_gpu(x):
-    os.environ['CUDA_VISIBLE_DEVICES'] = x
-    print('Using gpu:', x)
+def set_gpu(cuda_device):
+    os.environ['CUDA_VISIBLE_DEVICES'] = cuda_device
+    print('Using gpu:', cuda_device)
     
 
