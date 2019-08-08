@@ -65,7 +65,6 @@ class MetaTrainer(object):
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
         
         # load pretrained model without FC classifier
-        '''
         self.model_dict = self.model.state_dict()
         if self.args.init_weights is not None:
             pretrained_dict = torch.load(self.args.init_weights)['params']
@@ -81,7 +80,6 @@ class MetaTrainer(object):
         print(pretrained_dict.keys())
         self.model_dict.update(pretrained_dict)
         self.model.load_state_dict(self.model_dict)    
-        '''
 
         # Set model to GPU
         if torch.cuda.is_available():
