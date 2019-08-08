@@ -92,90 +92,56 @@ To generate this dataset from ImageNet, you may use the repository 𝑡𝑖𝑒�
 ├── trainer                     
 |   ├── pre.py                  # pre-train trainer class
 |   └── meta.py                 # meta-train trainer class
-├── utils                       # a series of tools used in this repo
+├── utils                       
 |   ├── gpu_tools.py            # GPU tool functions
 |   └── misc.py                 # miscellaneous tool functions
 ├── main.py                     # the python file with main function and parameter settings
-└── run_experiment.py           # the script to run the whole experiment
+├── run_pre.py                  # the script to run pretrain phase
+└── run_meta.py                 # the script to run meta-train and meta-test phases
 ```
 
 ## Running Experiments
 
-### Training from Scratch
-Run pre-train phase:
+Run pretrain phase:
 ```bash
-python run_experiment.py PRE
+python run_pre.py
 ```
 Run meta-train and meta-test phase:
 ```bash
-python run_experiment.py META
+python run_meta.py
 ```
 
 ### Hyperparameters and Options
 You may edit the `run_experiment.py` file to change the hyperparameters and options. 
 
-- `LOG_DIR` Name of the folder to save the log files
-- `GPU_ID` GPU device id
-- `PRE_TRA_LABEL` Additional label for pre-train model
-- `PRE_TRA_ITER_MAX` Iteration number for the pre-train phase
-- `PRE_TRA_DROP` Dropout keep rate for the pre-train phase
-- `PRE_DROP_STEP` Iteration number for the pre-train learning rate reducing
-- `PRE_LR` Pre-train learning rate
-- `SHOT_NUM` Sample number for each class
-- `WAY_NUM` Class number for the few-shot tasks
-- `MAX_MAX_ITER` Iteration number for meta-train phase
-- `META_BATCH_SIZE` Meta batch size 
-- `PRE_ITER` Iteration number for the pre-train model used in the meta-train phase
-- `UPDATE_NUM` Epoch number for the base learning
-- `SAVE_STEP` Iteration number to save the meta model
-- `META_LR` Meta learning rate
-- `META_LR_MIN` Meta learning rate min value
-- `LR_DROP_STEP` Iteration number for the meta learning rate reducing
-- `BASE_LR` Base learning rate
-- `PRE_TRA_DIR` Directory for the pre-train phase images
-- `META_TRA_DIR` Directory for the meta-train images
-- `META_VAL_DIR` Directory for the meta-validation images
-- `META_TES_DIR` Directory for the meta-test images
+- `model_type` The network architecture
+- `dataset` Meta dataset
+- `phase` pretrain, meta-train or meta-eval
+- `seed` Manual seed for PyTorch, "0" means using random seed
+- `gpu` GPU id
+- `dataset_dir` Directory for the images
+- `max_epoch` Epoch number for meta-train pahse
+- `num_batch` The number for different tasks used for meta-train
+- `shot` Shot number, how many samples for one class in a task
+- `way` Way number, how many classes in a task
+- `train_query` The number of training samples for each class in a task 
+- `val_query` The number of test samples for each class in a task
+- `meta_lr1` Learning rate for SS weights
+- `meta_lr2` Learning rate for FC weights
+- `base_lr` Learning rate for the inner loop
+- `update_step` The number of updates for the inner loop
+- `step_size` The number of epochs to reduce the meta learning rates
+- `gamma` Gamma for the meta-train learning rate decay
+- `init_weights` The pretained weights for meta-train phase
+- `eval_weights` The meta-trained weights for meta-eval phase
+- `meta_label` Additional label for meta-train
+- `pre_max_epoch` Epoch number for pretrain pahse
+- `pre_batch_size` Batch size for pretrain pahse
+- `pre_lr` Learning rate for pretrain pahse
+- `pre_gamma` Gamma for the preteain learning rate decay
+- `pre_step_size` The number of epochs to reduce the pretrain learning rate
+- `pre_custom_weight_decay` Weight decay for the optimizer during pretrain
 
-The file `run_experiment.py` is just a script to generate commands for `main.py`. If you want to change other settings, please see the comments and descriptions in `main.py`.
-
-### Using Downloaded Models
-In the default setting, if you run `python run_experiment.py`, the pretrain process will be conducted before the meta-train phase starts. If you want to use the model pretrained by us, you may download the model by the following link. To run experiments with the downloaded model, please make sure you are using python 2.7.
-
-Comparison of the original paper and the open-source code in terms of test set accuracy:
-
-|          (%)           | 𝑚𝑖𝑛𝑖 1-shot  | 𝑚𝑖𝑛𝑖 5-shot  | FC100 1-shot | FC100 5-shot |
-| ---------------------- | ------------ | ------------ | ------------ | ------------ |
-| `MTL Paper`            | `60.2 ± 1.8` | `74.3 ± 0.9` | `43.6 ± 1.8` | `55.4 ± 0.9` |
-| `This Repo`            | `60.8 ± 1.8` | `74.3 ± 0.9` | `44.3 ± 1.8` | `56.8 ± 1.0` |
-
-Download models: [\[Google Drive\]](https://drive.google.com/drive/folders/1MzH2enwLKuzmODYAEATnyiP_602zrdrE?usp=sharing)
-
-Move the downloaded npy files to `./logs/download_weights` (e.g. 𝑚𝑖𝑛𝑖ImageNet, 1-shot):
-```bash
-mkdir -p ./logs/download_weights
-mv ~/downloads/mini-1shot/*.npy ./logs/download_weights
-```
-
-Run meta-train with downloaded model:
-```bash
-python run_experiment.py META_LOAD
-```
-
-Run meta-test with downloaded model:
-```bash
-python run_experiment.py TEST_LOAD
-```
-
-
-## Todo
-
-- [ ] 𝐇𝐚𝐫𝐝 𝐭𝐚𝐬𝐤 𝐦𝐞𝐭𝐚-𝐛𝐚𝐭𝐜𝐡.
-  The implementation of hard task meta-batch is not included in the published code. I still need time to rewrite the hard task meta batch code for the current framework.
-- [ ] 𝐌𝐨𝐫𝐞 𝐧𝐞𝐭𝐰𝐨𝐫𝐤 𝐚𝐫𝐜𝐡𝐢𝐭𝐞𝐜𝐭𝐮𝐫𝐞𝐬.
-  We will add new backbones to the framework like ResNet18 and ResNet34.
-- [ ] 𝐏𝐲𝐓𝐨𝐫𝐜𝐡 𝐯𝐞𝐫𝐬𝐢𝐨𝐧.
-  We will release the code for MTL on pytorch. It may takes several months to be completed.
 
 ## Citation
 
@@ -192,9 +158,9 @@ Please cite our paper if it is helpful to your work:
 
 ## Acknowledgements
 
-Our implementation uses the source code from the following repositories:
+Our implementation uses the source code from the following repositories and users:
 
-[Model-Agnostic Meta-Learning](https://github.com/cbfinn/maml)
+[FEAT](https://github.com/Sha-Lab/FEAT)
 
-[Optimization as a Model for Few-Shot Learning](https://github.com/gitabcworld/FewShotLearning)
+[@icoz69](https://github.com/icoz69)
 
