@@ -31,7 +31,7 @@ Meta-learning has been proposed as a framework to address the challenging few-sh
 
 ## Installation
 
-In order to run this repository, we advise you to install python 2.7 or 3.5 and TensorFlow 1.3.0 with Anaconda.
+In order to run this repository, we advise you to install python 3.5 and PyTorch 0.4.0 with Anaconda.
 
 You may download Anaconda and read the installation instruction on their official website:
 <https://www.anaconda.com/download/>
@@ -41,7 +41,7 @@ Create a new environment and install tensorflow on it:
 ```bash
 conda create --name mtl-pytorch python=3.5
 conda activate mtl-pytorch
-conda install tensorflow-gpu=1.3.0
+conda install pytorch=0.4.0 torchvision
 ```
 
 Install other requirements:
@@ -52,8 +52,8 @@ pip install scipy tqdm opencv-python pillow matplotlib
 Clone this repository:
 
 ```bash
-git clone https://github.com/y2l/meta-transfer-learning-tensorflow.git 
-cd meta-transfer-learning-tensorflow
+git clone https://github.com/y2l/meta-transfer-learning-pytorch.git 
+cd meta-transfer-learning-pytorch
 ```
 
 ## Datasets
