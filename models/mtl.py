@@ -11,7 +11,6 @@
 import  torch
 import torch.nn as nn
 import torch.nn.functional as F
-from utils.misc import euclidean_metric
 from models.resnet_mtl import ResNetMtl
 
 class BaseLearner(nn.Module):

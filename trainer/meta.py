@@ -143,20 +143,20 @@ class MetaTrainer(object):
                 # Update global count number 
                 global_count = global_count + 1
                 if torch.cuda.is_available():
-                    datrain_acc_averager, _ = [_.cuda() for _ in batch]
+                    data, _ = [_.cuda() for _ in batch]
                 else:
-                    datrain_acc_averager = batch[0]
+                    data = batch[0]
                 p = self.args.shot * self.args.way
-                datrain_acc_averager_shot, datrain_acc_averager_query = datrain_acc_averager[:p], datrain_acc_averager[p:]
+                data_shot, data_query = data[:p], data[p:]
                 # Output logits for model
-                logits = self.model((datrain_acc_averager_shot, label_shot, datrain_acc_averager_query))
+                logits = self.model((data_shot, label_shot, data_query))
                 # Calculate meta-train loss
                 loss = F.cross_entropy(logits, label)
                 # Calculate meta-train accuracy
                 acc = count_acc(logits, label)
                 # Write the tensorboardX records
-                writer.add_scalar('datrain_acc_averager/loss', float(loss), global_count)
-                writer.add_scalar('datrain_acc_averager/acc', float(acc), global_count)
+                writer.add_scalar('data/loss', float(loss), global_count)
+                writer.add_scalar('data/acc', float(acc), global_count)
                 # Print loss and accuracy for this step
                 tqdm_gen.set_description('Epoch {}, Loss={:.4f} Acc={:.4f}'.format(epoch, loss.item(), acc))
 
@@ -188,29 +188,31 @@ class MetaTrainer(object):
                 label = label.type(torch.LongTensor)
                 
             # Print previous information
-            print('Best Epoch {}, Best Val Acc={:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']))
+            if epoch % 10 == 0:
+                print('Best Epoch {}, Best Val Acc={:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']))
             # Run meta-validation
             for i, batch in enumerate(self.val_loader, 1):
                 if torch.cuda.is_available():
-                    datrain_acc_averager, _ = [_.cuda() for _ in batch]
+                    data, _ = [_.cuda() for _ in batch]
                 else:
-                    datrain_acc_averager = batch[0]
+                    data = batch[0]
                 p = self.args.shot * self.args.way
-                datrain_acc_averager_shot, datrain_acc_averager_query = datrain_acc_averager[:p], datrain_acc_averager[p:]
-                logits = self.model((datrain_acc_averager_shot, label_shot, datrain_acc_averager_query))
+                data_shot, data_query = data[:p], data[p:]
+                logits = self.model((data_shot, label_shot, data_query))
                 loss = F.cross_entropy(logits, label)
                 acc = count_acc(logits, label)
-                val_acc_averager.add(loss.item())
+
+                val_loss_averager.add(loss.item())
                 val_acc_averager.add(acc)
 
             # Update validation averagers
             val_loss_averager = val_loss_averager.item()
             val_acc_averager = val_acc_averager.item()
             # Write the tensorboardX records
-            writer.add_scalar('datrain_acc_averager/val_loss', float(val_acc_averager), epoch)
-            writer.add_scalar('datrain_acc_averager/val_acc', float(va), epoch)       
+            writer.add_scalar('data/val_loss', float(val_loss_averager), epoch)
+            writer.add_scalar('data/val_acc', float(val_acc_averager), epoch)       
             # Print loss and accuracy for this epoch
-            print('Epoch {}, Val, Loss={:.4f} Acc={:.4f}'.format(epoch, val_loss_averager, va))
+            print('Epoch {}, Val, Loss={:.4f} Acc={:.4f}'.format(epoch, val_loss_averager, val_acc_averager))
 
             # Update best saved model
             if val_acc_averager > trlog['max_acc']:
@@ -227,10 +229,12 @@ class MetaTrainer(object):
             trlog['val_loss'].append(val_loss_averager)
             trlog['val_acc'].append(val_acc_averager)
 
-            # Save final information
+            # Save log
             torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
-            self.save_model('epoch-last')
-            print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
+
+            if epoch % 10 == 0:
+                print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
+
         writer.close()
 
     def eval(self):

@@ -168,7 +168,8 @@ class PreTrainer(object):
                 label_shot = label_shot.type(torch.LongTensor)
               
             # Print previous information  
-            print('Best Epoch {}, Best Val acc={:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']))
+            if epoch % 10 == 0:
+                print('Best Epoch {}, Best Val acc={:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']))
             # Run meta-validation
             for i, batch in enumerate(self.val_loader, 1):
                 if torch.cuda.is_available():
@@ -207,12 +208,9 @@ class PreTrainer(object):
             trlog['val_loss'].append(val_loss_averager)
             trlog['val_acc'].append(val_acc_averager)
 
-            # Save final information
+            # Save log
             torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
 
-            if epoch > self.args.pre_max_epoch-2:
-                self.save_model('epoch-last')
-                torch.save(self.optimizer.state_dict(), osp.join(self.args.save_path,'optimizer_latest.pth'))
-
-            print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
+            if epoch % 10 == 0:
+                print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
         writer.close()
