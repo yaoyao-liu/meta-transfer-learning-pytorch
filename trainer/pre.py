@@ -182,7 +182,7 @@ class PreTrainer(object):
                 loss = F.cross_entropy(logits, label)
                 acc = count_acc(logits, label)
                 val_loss_averager.add(loss.item())
-                va.add(acc)
+                val_acc_averager.add(acc)
 
             # Update validation averagers
             val_loss_averager = val_loss_averager.item()
