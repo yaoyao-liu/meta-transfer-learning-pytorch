@@ -119,11 +119,11 @@ Hyperparameters and options in `main.py`.
 
 - `model_type` The network architecture
 - `dataset` Meta dataset
-- `phase` pretrain, meta-train or meta-eval
+- `phase` pre-train, meta-train or meta-eval
 - `seed` Manual seed for PyTorch, "0" means using random seed
 - `gpu` GPU id
 - `dataset_dir` Directory for the images
-- `max_epoch` Epoch number for meta-train pahse
+- `max_epoch` Epoch number for meta-train phase
 - `num_batch` The number for different tasks used for meta-train
 - `shot` Shot number, how many samples for one class in a task
 - `way` Way number, how many classes in a task
@@ -138,12 +138,12 @@ Hyperparameters and options in `main.py`.
 - `init_weights` The pretained weights for meta-train phase
 - `eval_weights` The meta-trained weights for meta-eval phase
 - `meta_label` Additional label for meta-train
-- `pre_max_epoch` Epoch number for pretrain pahse
-- `pre_batch_size` Batch size for pretrain pahse
-- `pre_lr` Learning rate for pretrain pahse
+- `pre_max_epoch` Epoch number for pre-train pahse
+- `pre_batch_size` Batch size for pre-train pahse
+- `pre_lr` Learning rate for pre-train pahse
 - `pre_gamma` Gamma for the preteain learning rate decay
-- `pre_step_size` The number of epochs to reduce the pretrain learning rate
-- `pre_custom_weight_decay` Weight decay for the optimizer during pretrain
+- `pre_step_size` The number of epochs to reduce the pre-train learning rate
+- `pre_custom_weight_decay` Weight decay for the optimizer during pre-train
 
 
 ## Citation
