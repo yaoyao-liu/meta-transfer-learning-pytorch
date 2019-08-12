@@ -87,7 +87,7 @@ To generate this dataset from ImageNet, you may use the repository 𝑡𝑖𝑒�
 .
 ├── data_generator              
 |   ├── dataset_loader.py       # data loader for all datasets
-|   └── meta_data_generator.py  # samplers  for meta train
+|   └── meta_data_generator.py  # samplers for meta train
 ├── models                      
 |   ├── mtl.py                  # meta-transfer class
 |   ├── resnet_mtl.py           # resnet class
@@ -99,7 +99,7 @@ To generate this dataset from ImageNet, you may use the repository 𝑡𝑖𝑒�
 |   ├── gpu_tools.py            # GPU tool functions
 |   └── misc.py                 # miscellaneous tool functions
 ├── main.py                     # the python file with main function and parameter settings
-├── run_pre.py                  # the script to run pretrain phase
+├── run_pre.py                  # the script to run pre-train phase
 └── run_meta.py                 # the script to run meta-train and meta-test phases
 ```
 
