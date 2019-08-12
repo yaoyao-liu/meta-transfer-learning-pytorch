@@ -46,7 +46,7 @@ conda activate mtl-pytorch
 conda install pytorch=0.4.0 
 conda install torchvision -c pytorch
 ```
-> Here is a kind reminder: When creating a new environment via conda, since the version of torchvision is out-of-date in conda package management, so we need to switch the default download source of torchvision to pytorch, which the up-to-date, or you might meet some problems like `has no Attribute "tranform.resize()"` or `has no Attribute "transform.RandomResizedCrop()"` in run_pre.py 
+> Here is a kind reminder: When creating a new environment via conda, since the version of torchvision is out-of-date in conda package management, so we need to switch the default download source of torchvision to pytorch, which the up-to-date, or you might meet some problems like `has no Attribute "tranform.resize()"` or `has no Attribute "transform.RandomResizedCrop()"` in `run_pre.py`. 
 
 Install other requirements:
 ```bash
@@ -166,4 +166,6 @@ Our implementation uses the source code from the following repositories and user
 * [FEAT](https://github.com/Sha-Lab/FEAT)
 
 * [@icoz69](https://github.com/icoz69)
+
+* [@CookieLau](https://github.com/CookieLau)
 
