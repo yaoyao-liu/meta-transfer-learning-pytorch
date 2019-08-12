@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_dir', type=str, default='./data/mini/') # Dataset folder
 
     # Parameters for meta-train phase
-    parser.add_argument('--max_epoch', type=int, default=100) # Epoch number for meta-train pahse
+    parser.add_argument('--max_epoch', type=int, default=100) # Epoch number for meta-train phase
     parser.add_argument('--num_batch', type=int, default=100) # The number for different tasks used for meta-train
     parser.add_argument('--shot', type=int, default=1) # Shot number, how many samples for one class in a task
     parser.add_argument('--way', type=int, default=5) # Way number, how many classes in a task
@@ -43,18 +43,18 @@ if __name__ == '__main__':
     parser.add_argument('--update_step', type=int, default=50) # The number of updates for the inner loop
     parser.add_argument('--step_size', type=int, default=10) # The number of epochs to reduce the meta learning rates
     parser.add_argument('--gamma', type=float, default=0.5) # Gamma for the meta-train learning rate decay
-    parser.add_argument('--init_weights', type=str, default=None) # The pretained weights for meta-train phase
+    parser.add_argument('--init_weights', type=str, default=None) # The pre-trained weights for meta-train phase
     parser.add_argument('--eval_weights', type=str, default=None) # The meta-trained weights for meta-eval phase
     parser.add_argument('--meta_label', type=str, default='exp1') # Additional label for meta-train
 
     # Parameters for pretain phase
-    parser.add_argument('--pre_max_epoch', type=int, default=100) # Epoch number for pretrain pahse
-    parser.add_argument('--pre_batch_size', type=int, default=128) # Batch size for pretrain pahse
-    parser.add_argument('--pre_lr', type=float, default=0.1) # Learning rate for pretrain pahse
-    parser.add_argument('--pre_gamma', type=float, default=0.2) # Gamma for the preteain learning rate decay
-    parser.add_argument('--pre_step_size', type=int, default=30) # The number of epochs to reduce the pretrain learning rate
-    parser.add_argument('--pre_custom_momentum', type=float, default=0.9) # Momentum for the optimizer during pretrain
-    parser.add_argument('--pre_custom_weight_decay', type=float, default=0.0005) # Weight decay for the optimizer during pretrain
+    parser.add_argument('--pre_max_epoch', type=int, default=100) # Epoch number for pre-train phase
+    parser.add_argument('--pre_batch_size', type=int, default=128) # Batch size for pre-train phase
+    parser.add_argument('--pre_lr', type=float, default=0.1) # Learning rate for pre-train phase
+    parser.add_argument('--pre_gamma', type=float, default=0.2) # Gamma for the pre-train learning rate decay
+    parser.add_argument('--pre_step_size', type=int, default=30) # The number of epochs to reduce the pre-train learning rate
+    parser.add_argument('--pre_custom_momentum', type=float, default=0.9) # Momentum for the optimizer during pre-train
+    parser.add_argument('--pre_custom_weight_decay', type=float, default=0.0005) # Weight decay for the optimizer during pre-train
 
     # Set and print the parameters
     args = parser.parse_args()
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
-    # Start trainer for pretrain, meta-train or meta-eval
+    # Start trainer for pre-train, meta-train or meta-eval
     if args.phase=='meta_train':
         trainer = MetaTrainer(args)
         trainer.train()
