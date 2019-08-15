@@ -1,7 +1,7 @@
 ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Created by: Yaoyao Liu
 ## Tianjin University
-## Email: liuyaoyao@tju.edu.cn
+## liuyaoyao@tju.edu.cn
 ## Copyright (c) 2019
 ##
 ## This source code is licensed under the MIT-style license found in the
