@@ -38,7 +38,7 @@ In order to run this repository, we advise you to install python 3.5 and PyTorch
 You may download Anaconda and read the installation instruction on their official website:
 <https://www.anaconda.com/download/>
 
-Create a new environment and install PyTorch on it:
+Create a new environment and install PyTorch and torchvision on it:
 
 ```bash
 conda create --name mtl-pytorch python=3.5
