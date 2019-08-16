@@ -86,3 +86,4 @@ def compute_confidence_interval(data):
     std = np.std(a)
     pm = 1.96 * (std / np.sqrt(len(a)))
     return m, pm
+    

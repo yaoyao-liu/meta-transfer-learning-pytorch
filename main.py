@@ -86,3 +86,4 @@ if __name__ == '__main__':
         trainer.train()
     else:
         raise ValueError('Please set correct phase.')
+        

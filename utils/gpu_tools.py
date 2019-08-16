@@ -31,3 +31,4 @@ def occupy_memory(cuda_device):
 def set_gpu(cuda_device):
     os.environ['CUDA_VISIBLE_DEVICES'] = cuda_device
     print('Using gpu:', cuda_device)
+    
