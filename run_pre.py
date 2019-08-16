@@ -7,7 +7,7 @@
 ## This source code is licensed under the MIT-style license found in the
 ## LICENSE file in the root directory of this source tree
 ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+""" Generate commands for pre-train phase. """
 import os
 
 def run_exp(lr=0.1, gamma=0.2, step_size=30):
