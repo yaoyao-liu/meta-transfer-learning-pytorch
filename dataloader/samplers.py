@@ -28,7 +28,6 @@ class CategoriesSampler():
 
     def __len__(self):
         return self.n_batch
-    
     def __iter__(self):
         for i_batch in range(self.n_batch):
             batch = []

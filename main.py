@@ -9,16 +9,12 @@
 ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 """ Main function for this repo. """
 import argparse
-import os.path as osp
-import os
 import numpy as np
 import torch
-import torch.nn.functional as F
-from utils.misc import pprint, ensure_path
+from utils.misc import pprint
 from utils.gpu_tools import set_gpu
 from trainer.meta import MetaTrainer
 from trainer.pre import PreTrainer
-from tensorboardX import SummaryWriter
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -86,4 +82,3 @@ if __name__ == '__main__':
         trainer.train()
     else:
         raise ValueError('Please set correct phase.')
-        
