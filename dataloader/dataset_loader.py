@@ -8,7 +8,7 @@
 ## This source code is licensed under the MIT-style license found in the
 ## LICENSE file in the root directory of this source tree
 ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+""" Dataloader for all datasets. """
 import os.path as osp
 import os
 from PIL import Image
@@ -80,4 +80,3 @@ class DatasetLoader(Dataset):
         path, label = self.data[i], self.label[i]
         image = self.transform(Image.open(path).convert('RGB'))
         return image, label
-
