@@ -39,4 +39,3 @@ class CategoriesSampler():
                 batch.append(l[pos])
             batch = torch.stack(batch).t().reshape(-1)
             yield batch
-

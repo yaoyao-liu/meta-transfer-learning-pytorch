@@ -40,8 +40,7 @@ class DatasetLoader(Dataset):
         folders = [osp.join(THE_PATH, label) for label in label_list if os.path.isdir(osp.join(THE_PATH, label))]
 
         # Get the images' paths and labels
-        for idx in range(len(folders)):
-            this_folder = folders[idx]
+        for idx, this_folder in enumerate(folders):
             this_folder_images = os.listdir(this_folder)
             for image_path in this_folder_images:
                 data.append(osp.join(this_folder, image_path))
