@@ -2,7 +2,7 @@
 [![LICENSE](https://img.shields.io/github/license/y2l/meta-transfer-learning-tensorflow.svg?style=flat-square)](https://github.com/y2l/meta-transfer-learning-tensorflow/blob/master/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.5-blue.svg?style=flat-square)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/pytorch-0.4.0-orange.svg?style=flat-square)](https://www.pytorch.org/)
-[![CodeFactor](https://www.codefactor.io/repository/github/y2l/meta-transfer-learning-pytorch/badge?style=flat-square)](https://www.codefactor.io/repository/github/y2l/meta-transfer-learning-pytorch)
+[![CodeFactor](https://img.shields.io/codefactor/grade/github/y2l/meta-transfer-learning-pytorch/master?style=flat-square)](https://www.codefactor.io/repository/github/y2l/meta-transfer-learning-pytorch)
 
 #### \[[TensorFlow Implementation](https://github.com/y2l/meta-transfer-learning-tensorflow)\]
 
