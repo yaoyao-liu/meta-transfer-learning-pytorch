@@ -144,6 +144,12 @@ Hyperparameters and options in `main.py`.
 - `pre_step_size` The number of epochs to reduce the pre-train learning rate
 - `pre_custom_weight_decay` Weight decay for the optimizer during pre-train
 
+## Performance
+
+|          (%)           | 𝑚𝑖𝑛𝑖 1-shot  | 𝑚𝑖𝑛𝑖 5-shot  | FC100 1-shot | FC100 5-shot | 𝒕𝒊𝒆𝒓𝒆𝒅 1-shot | 𝒕𝒊𝒆𝒓𝒆𝒅 5-shot |
+| ---------------------- | ------------ | ------------ | ------------ | ------------ |------------ | ------------ |
+| `MTL Paper`            | `60.2 ± 1.8` | `74.3 ± 0.9` | `43.6 ± 1.8` | `55.4 ± 0.9` | `-` | `-` |
+| `This Repo`            | `62.1 ± 1.8` | `78.5 ± 0.9` | `45.3 ± 1.8` | `59.7 ± 1.0` | `67.8 ± 1.8` | `83.0 ± 1.0` |
 
 ## Citation
 
