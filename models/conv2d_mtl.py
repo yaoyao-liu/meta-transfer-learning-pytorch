@@ -90,13 +90,12 @@ class Conv2dMtl(_ConvNdMtl):
             in_channels, out_channels, kernel_size, stride, padding, dilation,
             False, _pair(0), groups, bias)
 
-    def forward(self, input):
+    def forward(self, inp):
         new_mtl_weight = self.mtl_weight.expand(self.weight.shape)
         new_weight = self.weight.mul(new_mtl_weight)
         if self.bias is not None:
             new_bias = self.bias + self.mtl_bias
         else:
             new_bias = None
-        return F.conv2d(input, new_weight, new_bias, self.stride,
+        return F.conv2d(inp, new_weight, new_bias, self.stride,
                         self.padding, self.dilation, self.groups)
-        
