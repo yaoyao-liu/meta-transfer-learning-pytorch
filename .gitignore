@@ -1,6 +1,5 @@
 # File types
 *.pyc
-*.npy
 
 # Folders
 data
@@ -9,5 +8,4 @@ logs
 __pycache__
 
 # File
-bashrc
 .DS_Store
