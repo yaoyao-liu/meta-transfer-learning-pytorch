@@ -33,4 +33,3 @@ def run_exp(lr=0.1, gamma=0.2, step_size=30):
     os.system(the_command)
 
 run_exp(lr=0.1, gamma=0.2, step_size=30)
-
