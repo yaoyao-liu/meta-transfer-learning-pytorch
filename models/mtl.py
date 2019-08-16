@@ -130,5 +130,3 @@ class MtlLearner(nn.Module):
             fast_weights = list(map(lambda p: p[1] - 0.01 * p[0], zip(grad, fast_weights)))
             logits_q = self.base_learner(embedding_query, fast_weights)         
         return logits_q
-
-
