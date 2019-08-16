@@ -17,6 +17,7 @@ If you have any questions on this repository or the related paper, feel free to 
 * [Datasets](#datasets)
 * [Repo Architecture](#repo-architecture)
 * [Running Experiments](#running-experiments)
+* [Performance](#performance)
 * [Citation](#citation)
 * [Acknowledgements](#acknowledgements)
 
