@@ -4,7 +4,7 @@
 [![PyTorch](https://img.shields.io/badge/pytorch-0.4.0-%237732a8)](https://pytorch.org/)
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/y2l/meta-transfer-learning-pytorch/master)](https://www.codefactor.io/repository/github/y2l/meta-transfer-learning-pytorch)
 
-#### \[[TensorFlow Implementation](https://github.com/y2l/meta-transfer-learning-tensorflow)\]
+#### \[[TensorFlow Implementation](https://github.com/y2l/meta-transfer-learning-tf)\]
 
 This repository contains the PyTorch implementation for [CVPR 2019](http://cvpr2019.thecvf.com/) Paper ["Meta-Transfer Learning for Few-Shot Learning"](http://openaccess.thecvf.com/content_CVPR_2019/papers/Sun_Meta-Transfer_Learning_for_Few-Shot_Learning_CVPR_2019_paper.pdf) by [Qianru Sun](https://sites.google.com/view/qianrusun/home)\*, [Yaoyao Liu](https://yyliu.net)\*, [Tat-Seng Chua](https://www.chuatatseng.com/) and [Bernt Schiele](https://www.mpi-inf.mpg.de/departments/computer-vision-and-multimodal-computing/people/bernt-schiele/) (\*equal contribution).
 
